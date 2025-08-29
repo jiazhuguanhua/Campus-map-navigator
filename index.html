@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活服务导航 - 欢迎新同学</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-banner">
+            <h2>欢迎新同学</h2>
+        </div>
+        <header>
+            <h1>生活服务导航</h1>
+            <p>便民服务，一键直达</p>
+        </header>
+        
+        <div class="navigation-grid">
+            <!-- 按钮1: 阳光健身 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/83/jN3k">
+                <div class="icon-container">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <span class="button-text">阳光健身</span>
+            </div>
+            
+            <!-- 按钮2: 久昌百货 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/00/p04k">
+                <div class="icon-container">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <span class="button-text">久昌百货</span>
+            </div>
+            
+            <!-- 按钮3: 魔世电竞 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/fe/SgYi">
+                <div class="icon-container">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <span class="button-text">魔世电竞</span>
+            </div>
+            
+            <!-- 按钮4: 37℃干洗店 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/ab/LR4k">
+                <div class="icon-container">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <span class="button-text">37℃干洗店</span>
+            </div>
+            
+            <!-- 按钮5: 宁星驾校 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/d6/fe3k">
+                <div class="icon-container">
+                    <i class="fas fa-car"></i>
+                </div>
+                <span class="button-text">宁星驾校</span>
+            </div>
+            
+            <!-- 按钮6: 雅迪电动车 -->
+            <div class="nav-button" data-url="https://j.map.baidu.com/d6/0ddc">
+                <div class="icon-container">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <span class="button-text">雅迪电动车</span>
+            </div>
+        </div>
+        
+        <!-- 背景设置面板 -->
+        <div class="bg-controls">
+            <input type="file" id="bgImageInput" accept="image/*" style="display: none;">
+            <button class="bg-button" onclick="document.getElementById('bgImageInput').click();">
+                <i class="fas fa-image"></i> 更换背景
+            </button>
+            <button class="bg-button" onclick="resetBackground();">
+                <i class="fas fa-undo"></i> 恢复默认
+            </button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
