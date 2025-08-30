@@ -5,6 +5,25 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSavedBackground();
 });
 
+// 地图下载功能
+function downloadMap() {
+    // 创建一个临时的 a 标签来触发下载
+    const link = document.createElement('a');
+    link.href = 'resources/map.png';
+    link.download = '校园电子地图.png';
+    link.style.display = 'none';
+    
+    // 添加到页面并点击
+    document.body.appendChild(link);
+    link.click();
+    
+    // 移除临时元素
+    document.body.removeChild(link);
+    
+    // 显示下载提示
+    showMessage('电子地图下载已开始！', 'success');
+}
+
 // 初始化导航功能
 function initializeNavigation() {
     const navButtons = document.querySelectorAll('.nav-button');
@@ -66,7 +85,7 @@ function setBackgroundImage(imageUrl) {
 
 // 重置背景为默认
 function resetBackground() {
-    document.body.style.background = "url('background.png') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)";
+    document.body.style.background = "url('resources/background.png') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)";
     document.body.style.backgroundBlendMode = 'overlay';
     localStorage.removeItem('customBackground');
     showMessage('背景已重置为默认！', 'success');
@@ -97,17 +116,17 @@ function loadSavedBackground() {
 function checkDefaultBackground() {
     const img = new Image();
     img.onload = function() {
-        // 图片加载成功，使用 background.png
-        document.body.style.background = "url('background.png') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)";
+        // 图片加载成功，使用 resources/background.png
+        document.body.style.background = "url('resources/background.png') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)";
         document.body.style.backgroundBlendMode = 'overlay';
     };
     img.onerror = function() {
         // 图片加载失败，使用纯渐变背景
         document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         document.body.style.backgroundBlendMode = 'normal';
-        console.log('background.png 未找到，使用默认渐变背景');
+        console.log('resources/background.png 未找到，使用默认渐变背景');
     };
-    img.src = 'background.png';
+    img.src = 'resources/background.png';
 }
 
 // 显示消息提示
