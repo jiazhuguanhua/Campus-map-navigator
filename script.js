@@ -61,8 +61,8 @@ function recordPageStayTime(resetTimer = true) {
 function downloadMap() {
     // 创建一个临时的 a 标签来触发下载
     const link = document.createElement('a');
-    link.href = 'resources/map.png';
-    link.download = '校园电子地图.png';
+    link.href = 'resources/map.jpg';
+    link.download = '校园电子地图.jpg';
     link.style.display = 'none';
     
     // 添加到页面并点击
