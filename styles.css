@@ -160,40 +160,6 @@ header p {
     color: #333;
 }
 
-/* 背景控制按钮 */
-.bg-controls {
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.bg-button {
-    background: rgba(255, 255, 255, 0.9);
-    color: #667eea;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.bg-button:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.bg-button i {
-    margin-right: 8px;
-}
-
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {

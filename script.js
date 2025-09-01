@@ -1,7 +1,6 @@
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
-    initializeBackgroundControls();
     loadSavedBackground();
     initializePageTracking();
 });
@@ -122,73 +121,10 @@ function initializeNavigation() {
     });
 }
 
-// 初始化背景控制功能
-function initializeBackgroundControls() {
-    const bgImageInput = document.getElementById('bgImageInput');
-    
-    bgImageInput.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    setBackgroundImage(e.target.result);
-                    saveBackgroundToStorage(e.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                showMessage('请选择有效的图片文件！', 'error');
-            }
-        }
-    });
-}
-
-// 设置背景图片
-function setBackgroundImage(imageUrl) {
-    document.body.style.background = `url('${imageUrl}') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%)`;
-    document.body.style.backgroundBlendMode = 'overlay';
-    
-    // 百度统计 - 记录背景更换事件
-    if (typeof _hmt !== 'undefined') {
-        _hmt.push(['_trackEvent', '背景设置', '更换背景', '自定义图片', 1]);
-    }
-    
-    showMessage('背景已更新！', 'success');
-}
-
-// 重置背景为默认
-function resetBackground() {
-    document.body.style.background = "url('resources/background.png') center/cover fixed, linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%)";
-    document.body.style.backgroundBlendMode = 'overlay';
-    localStorage.removeItem('customBackground');
-    
-    // 百度统计 - 记录背景重置事件
-    if (typeof _hmt !== 'undefined') {
-        _hmt.push(['_trackEvent', '背景设置', '重置背景', '默认背景', 1]);
-    }
-    
-    showMessage('背景已重置为默认！', 'success');
-}
-
-// 保存背景到本地存储
-function saveBackgroundToStorage(imageData) {
-    try {
-        localStorage.setItem('customBackground', imageData);
-    } catch (e) {
-        console.warn('背景图片过大，无法保存到本地存储');
-        showMessage('背景图片过大，无法保存。请选择较小的图片。', 'warning');
-    }
-}
-
 // 从本地存储加载背景
 function loadSavedBackground() {
-    const savedBackground = localStorage.getItem('customBackground');
-    if (savedBackground) {
-        setBackgroundImage(savedBackground);
-    } else {
-        // 检查 background.png 是否存在，如果不存在则使用渐变背景
-        checkDefaultBackground();
-    }
+    // 直接检查默认背景图片
+    checkDefaultBackground();
 }
 
 // 检查默认背景图片是否存在
@@ -340,30 +276,6 @@ function preloadImages() {
 
 // 添加键盘快捷键支持
 document.addEventListener('keydown', function(e) {
-    // Ctrl+B 更换背景
-    if (e.ctrlKey && e.key === 'b') {
-        e.preventDefault();
-        
-        // 百度统计 - 记录快捷键使用
-        if (typeof _hmt !== 'undefined') {
-            _hmt.push(['_trackEvent', '快捷键', '使用', 'Ctrl+B更换背景', 1]);
-        }
-        
-        document.getElementById('bgImageInput').click();
-    }
-    
-    // Ctrl+R 重置背景
-    if (e.ctrlKey && e.key === 'r') {
-        e.preventDefault();
-        
-        // 百度统计 - 记录快捷键使用
-        if (typeof _hmt !== 'undefined') {
-            _hmt.push(['_trackEvent', '快捷键', '使用', 'Ctrl+R重置背景', 1]);
-        }
-        
-        resetBackground();
-    }
-    
     // Ctrl+Shift+S 显示统计信息（开发者调试用）
     if (e.ctrlKey && e.shiftKey && e.key === 'S') {
         e.preventDefault();
@@ -420,101 +332,4 @@ function showStatsModal() {
             modal.remove();
         }
     });
-}
-
-// 处理拖拽上传背景图片
-document.addEventListener('DOMContentLoaded', function() {
-    let dragCounter = 0;
-    
-    document.addEventListener('dragenter', function(e) {
-        e.preventDefault();
-        dragCounter++;
-        if (dragCounter === 1) {
-            showDragOverlay();
-        }
-    });
-    
-    document.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        dragCounter--;
-        if (dragCounter === 0) {
-            hideDragOverlay();
-        }
-    });
-    
-    document.addEventListener('dragover', function(e) {
-        e.preventDefault();
-    });
-    
-    document.addEventListener('drop', function(e) {
-        e.preventDefault();
-        dragCounter = 0;
-        hideDragOverlay();
-        
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            const file = files[0];
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    setBackgroundImage(e.target.result);
-                    saveBackgroundToStorage(e.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                showMessage('请拖拽图片文件！', 'error');
-            }
-        }
-    });
-});
-
-// 显示拖拽覆盖层
-function showDragOverlay() {
-    let overlay = document.querySelector('.drag-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.className = 'drag-overlay';
-        overlay.innerHTML = `
-            <div class="drag-content">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>拖拽图片到此处设置背景</p>
-            </div>
-        `;
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(102, 126, 234, 0.9);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            text-align: center;
-        `;
-        overlay.querySelector('.drag-content').style.cssText = `
-            padding: 40px;
-            border: 3px dashed rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-        `;
-        overlay.querySelector('i').style.cssText = `
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: block;
-        `;
-        document.body.appendChild(overlay);
-    }
-    overlay.style.display = 'flex';
-}
-
-// 隐藏拖拽覆盖层
-function hideDragOverlay() {
-    const overlay = document.querySelector('.drag-overlay');
-    if (overlay) {
-        overlay.style.display = 'none';
-    }
 }
