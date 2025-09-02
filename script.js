@@ -333,3 +333,38 @@ function showStatsModal() {
         }
     });
 }
+
+// 切换全屏地图显示
+function toggleFullscreen() {
+    const modal = document.getElementById('mapModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // 百度统计 - 记录查看大图事件
+    if (typeof _hmt !== 'undefined') {
+        _hmt.push(['_trackEvent', '地图查看', '查看大图', '全屏模式', 1]);
+    }
+}
+
+// 关闭全屏地图
+function closeMapModal() {
+    const modal = document.getElementById('mapModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // 百度统计 - 记录关闭大图事件
+    if (typeof _hmt !== 'undefined') {
+        _hmt.push(['_trackEvent', '地图查看', '关闭大图', '退出全屏', 1]);
+    }
+}
+
+// 键盘事件支持
+document.addEventListener('keydown', function(e) {
+    // ESC键关闭地图模态框
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('mapModal');
+        if (modal.classList.contains('active')) {
+            closeMapModal();
+        }
+    }
+});

@@ -19,6 +19,14 @@
     </script>
 </head>
 <body>
+    <!-- 固定顶部横幅 -->
+    <div class="fixed-header">
+        <div class="header-content">
+            <h1>南京工业大学非官方校园网站</h1>
+            <p class="subtitle">生活服务导航 · 便民服务，一键直达</p>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="welcome-banner">
             <h2>欢迎新同学</h2>
@@ -26,10 +34,21 @@
                 <i class="fas fa-download"></i> 获取电子地图
             </button>
         </div>
-        <header>
-            <h1>南京工业大学非官方校园网站</h1>
-            <p>生活服务导航 · 便民服务，一键直达</p>
-        </header>
+        
+        <!-- 地图显示区域 -->
+        <div class="map-section">
+            <div class="map-container">
+                <h3>校园地图</h3>
+                <div class="map-image-wrapper">
+                    <img src="resources/map.jpg" alt="南京工业大学校园地图" class="campus-map" id="campusMap">
+                    <div class="map-overlay">
+                        <button class="map-fullscreen-btn" onclick="toggleFullscreen()">
+                            <i class="fas fa-expand"></i> 查看大图
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="navigation-grid">
             <!-- 按钮1: 阳光健身 -->
@@ -86,6 +105,27 @@
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <span class="button-text">博约公考</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 全屏地图模态框 -->
+    <div class="map-modal" id="mapModal">
+        <div class="map-modal-overlay" onclick="closeMapModal()"></div>
+        <div class="map-modal-content">
+            <div class="map-modal-header">
+                <h3>南京工业大学校园地图</h3>
+                <button class="map-modal-close" onclick="closeMapModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="map-modal-body">
+                <img src="resources/map.jpg" alt="南京工业大学校园地图" class="fullscreen-map">
+            </div>
+            <div class="map-modal-footer">
+                <button class="map-download-btn" onclick="downloadMap()">
+                    <i class="fas fa-download"></i> 下载地图
+                </button>
             </div>
         </div>
     </div>
