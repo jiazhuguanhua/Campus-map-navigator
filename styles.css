@@ -129,6 +129,106 @@ body {
     font-weight: 700;
     letter-spacing: 3px;
     animation: pulse 2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 2;
+}
+
+/* 彩带容器和特效 */
+.ribbon-container {
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(45deg, 
+        rgba(255, 0, 150, 0.1) 0%,
+        rgba(0, 204, 255, 0.1) 25%,
+        rgba(255, 255, 0, 0.1) 50%,
+        rgba(255, 0, 150, 0.1) 75%,
+        rgba(0, 204, 255, 0.1) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 彩带纸屑效果 */
+.confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti::before,
+.confetti::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ff6b6b;
+    border-radius: 50%;
+    animation: confetti-fall 3s linear infinite;
+}
+
+.confetti::before {
+    left: 20%;
+    animation-delay: 0s;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+}
+
+.confetti::after {
+    left: 80%;
+    animation-delay: 1.5s;
+    background: linear-gradient(45deg, #45b7d1, #f9ca24);
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 添加更多彩带纸屑 */
+.ribbon-container::before,
+.ribbon-container::after {
+    content: '🎊';
+    position: absolute;
+    font-size: 20px;
+    animation: float 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.ribbon-container::before {
+    top: 10px;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.ribbon-container::after {
+    top: 10px;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
 }
 
 /* 按钮容器 - 水平排列 */
@@ -687,6 +787,15 @@ header p {
         letter-spacing: 1px;
     }
     
+    .ribbon-container {
+        padding: 15px;
+    }
+    
+    .ribbon-container::before,
+    .ribbon-container::after {
+        font-size: 16px;
+    }
+    
     .banner-buttons {
         flex-direction: column;
         gap: 15px;
@@ -782,6 +891,15 @@ header p {
     
     .welcome-banner h2 {
         font-size: 1.5em;
+    }
+    
+    .ribbon-container {
+        padding: 12px;
+    }
+    
+    .ribbon-container::before,
+    .ribbon-container::after {
+        font-size: 14px;
     }
     
     .banner-buttons {
@@ -935,6 +1053,13 @@ header p {
     color: rgba(255, 255, 255, 0.7);
     margin: 0;
     letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.icp-info:hover {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: underline;
 }
 
 /* 响应式页脚 */
